@@ -14,6 +14,7 @@ export interface DebugConfigItem {
  */
 export interface EvoLogConfig extends DebugConfigItem {
     color?: string;
+    text?: string;
     background?: string;
 }
 
