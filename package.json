@@ -1,13 +1,17 @@
 {
   "name": "evo-front",
-  "version": "11.0.2",
+  "version": "16.0.0",
   "description": "Angular библиотека автоматизации работы frontend разработчика",
   "author": "Кургузов Владимир Геннадьевич <kurguzov74@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "main": "bundles/evo-front.umd.js",
-  "module": "fesm2015/evo-front.js",
-  "es2015": "fesm2015/evo-front.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./fesm2022/evo-front.mjs"
+    }
+  },
   "typings": "index.d.ts",
   "scripts": {
     "build": "ng-packagr -p ng-package.json",
@@ -16,30 +20,32 @@
     "LIB-TO-NPM-PATCH": "npm run _delete-build && npm run _version-patch && npm run _copy-publish",
     "LIB-TO-NPM-MINOR": "npm run _delete-build && npm run _version-minor && npm run _copy-publish",
     "LIB-TO-NPM-MAJOR": "npm run _delete-build && npm run _version-major && npm run _copy-publish",
-    "_delete": "node -e \"const fs = require('fs'); if (fs.existsSync('dist')) fs.rmdirSync('dist', { recursive: true });\"",
+    "_delete": "node -e \"const fs = require('fs'); if (fs.existsSync('dist')) fs.rmSync('dist', { recursive: true, force: true });\"",
     "_build-lib": "ng-packagr -p ng-package.json",
     "_delete-build": "npm run _delete && npm run _build-lib",
     "_copy": "node -e \"const fs = require('fs'); fs.mkdirSync('dist', { recursive: true }); const pkg = fs.readFileSync('package.json'); fs.writeFileSync('dist/package.json', pkg); if (fs.existsSync('README.md')) fs.copyFileSync('README.md', 'dist/README.md'); if (fs.existsSync('LICENSE')) fs.copyFileSync('LICENSE', 'dist/LICENSE');\"",
     "_version-major": "npm --no-git-tag-version version major",
     "_version-minor": "npm --no-git-tag-version version minor",
     "_version-patch": "npm --no-git-tag-version version patch",
-    "_copy-publish": "npm run _copy && cd dist && npm publish --tag ng11-15"
+    "_copy-publish": "npm run _copy && cd dist && npm publish --tag ng16-17"
   },
   "peerDependencies": {
-    "@angular/core": ">=11 <16",
-    "@angular/common": ">=11 <16",
-    "rxjs": ">=6.5 <8"
+    "@angular/core": ">=16.0.0 <18.0.0",
+    "@angular/common": ">=16.0.0 <18.0.0",
+    "rxjs": ">=7.5.0 <8.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.6.0"
   },
   "devDependencies": {
-    "ng-packagr": "^11.2.0",
-    "typescript": "~4.0.8",
-    "@types/node": "14.14.37",
-    "@angular/compiler": "11.2.14",
-    "@angular/compiler-cli": "11.2.14",
-    "@angular/core": "11.2.14",
-    "@angular/common": "11.2.14",
-    "rxjs": "^6.6.7",
-    "tslib": "^2.0.0",
+    "ng-packagr": "^17.3.0",
+    "typescript": "~5.4.5",
+    "@types/node": "^18.19.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/compiler-cli": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/common": "^17.3.0",
+    "rxjs": "^7.8.1",
     "eslint": "^8.57.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0"
