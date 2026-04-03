@@ -1,10 +1,14 @@
-import {evoLoggingAccessType} from "./evo/logging/debugger";
-import { warn, color } from "./evo/logging/logger";
+import { evoLoggingAccessType } from './evo/logging/debugger';
+import { warn, color, info } from './evo/logging/logger';
+import { TEvo } from './evo/evo-types';
 
-(window as any).evo = {
+const evo: TEvo = {
     debug: evoLoggingAccessType,
     log: {
         warn,
-        color
-    }
+        color,
+        info,
+    },
 };
+
+(window as any).evo = evo;
