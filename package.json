@@ -10,10 +10,9 @@
     "es2015": "fesm2015/evo-front.js",
     "typings": "index.d.ts",
     "scripts": {
-        "lint": "eslint \"src/**/*.ts\"",
-        "build": "ng-packagr -p ng-package.json",
-        "build:watch": "npm run build -- --watch",
-        "LIB-BUILD": "npm run _delete-build && npm run _copy",
+        "#LIB-BUILD": "npm run _delete-build && npm run _copy",
+        "#BUILD:WATCH": "npm run build -- --watch",
+        "#COPY-EVO-FRONT": "powershell -ExecutionPolicy Bypass -File ./copy-evo-front.ps1",
         "LIB-TO-NPM-PATCH": "npm run _delete-build && npm run _version-patch && npm run _copy-publish",
         "LIB-TO-NPM-MINOR": "npm run _delete-build && npm run _version-minor && npm run _copy-publish",
         "LIB-TO-NPM-MAJOR": "npm run _delete-build && npm run _version-major && npm run _copy-publish",
@@ -24,7 +23,9 @@
         "_version-major": "npm --no-git-tag-version version major",
         "_version-minor": "npm --no-git-tag-version version minor",
         "_version-patch": "npm --no-git-tag-version version patch",
-        "_copy-publish": "npm run _copy && cd dist && npm publish --tag ng11-15"
+        "_copy-publish": "npm run _copy && cd dist && npm publish --tag ng11-15",
+        "lint": "eslint \"src/**/*.ts\"",
+        "build": "ng-packagr -p ng-package.json"
     },
     "peerDependencies": {
         "@angular/core": ">=11 <16",
