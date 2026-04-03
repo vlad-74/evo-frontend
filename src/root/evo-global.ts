@@ -1,4 +1,4 @@
 (window as any).$evo = {
     log: (msg: string) => console.log(msg),
-    debug: 'test12',
+    debug: 'test15',
 };

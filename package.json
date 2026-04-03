@@ -12,7 +12,7 @@
     "scripts": {
         "#LIB-BUILD": "npm run _delete-build && npm run _copy",
         "#BUILD:WATCH": "npm run build -- --watch",
-        "#COPY-EVO-FRONT": "powershell -ExecutionPolicy Bypass -File ./copy-evo-front.ps1",
+        "###COPY-EVO-FRONT": "powershell -ExecutionPolicy Bypass -File ./copy-evo-front.ps1",
         "LIB-TO-NPM-PATCH": "npm run _delete-build && npm run _version-patch && npm run _copy-publish",
         "LIB-TO-NPM-MINOR": "npm run _delete-build && npm run _version-minor && npm run _copy-publish",
         "LIB-TO-NPM-MAJOR": "npm run _delete-build && npm run _version-major && npm run _copy-publish",
