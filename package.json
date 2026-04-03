@@ -1,6 +1,6 @@
 {
     "name": "evo-front",
-    "version": "11.0.11",
+    "version": "11.0.17",
     "description": "Angular библиотека автоматизации работы frontend разработчика",
     "author": "Кургузов Владимир Геннадьевич <kurguzov74@gmail.com>",
     "license": "MIT",
@@ -11,8 +11,8 @@
     "typings": "index.d.ts",
     "scripts": {
         "#LIB-BUILD": "npm run _delete-build && npm run _copy",
-        "#BUILD:WATCH": "npm run build -- --watch",
-        "###COPY-EVO-FRONT": "powershell -ExecutionPolicy Bypass -File ./copy-evo-front.ps1",
+        "##LIB-BUILD:WATCH": "npm run _delete && npm run _build-lib -- --watch && npm run _copy",
+        "###COPY-ANGULAR11-WIDGET": "powershell -ExecutionPolicy Bypass -File ./copy-evo-front.ps1",
         "LIB-TO-NPM-PATCH": "npm run _delete-build && npm run _version-patch && npm run _copy-publish",
         "LIB-TO-NPM-MINOR": "npm run _delete-build && npm run _version-minor && npm run _copy-publish",
         "LIB-TO-NPM-MAJOR": "npm run _delete-build && npm run _version-major && npm run _copy-publish",

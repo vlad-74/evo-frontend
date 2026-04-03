@@ -1,4 +1,10 @@
-(window as any).$evo = {
-    log: (msg: string) => console.log(msg),
-    debug: 'test15',
+import {evoLoggingAccessType} from "./evo/logging/debugger";
+import { warn, color } from "./evo/logging/logger";
+
+(window as any).evo = {
+    debug: evoLoggingAccessType,
+    log: {
+        warn,
+        color
+    }
 };
