@@ -1,14 +1,11 @@
+import {TEvo} from '../global';
+
 import { evoLoggingAccessType } from './evo/logging/debugger';
-import { warn, color, info } from './evo/logging/logger';
-import { TEvo } from './evo/evo-types';
+import { logService } from './evo/logging/logger';
 
 const evo: TEvo = {
     debug: evoLoggingAccessType,
-    log: {
-        warn,
-        color,
-        info,
-    },
+    log: logService,
 };
 
 (window as any).evo = evo;

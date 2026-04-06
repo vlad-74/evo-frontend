@@ -1,5 +1,5 @@
-import { evoLoggingAccessType } from "./debugger";
-import { TAccessProcess, TLoggingTypes } from "./debugger";
+import { evoLoggingAccessType } from './debugger';
+import { TAccessProcess, TLoggingTypes } from './debugger';
 
 /**
  * Результат валидации сообщения для логирования
