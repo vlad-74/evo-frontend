@@ -1,4 +1,4 @@
-import { evoLoggingAccessType } from './debugger';
+import {accessProcessArray, evoLoggingAccessType, loggingTypesArray,} from './debugger';
 import { TAccessProcess, TLoggingTypes } from './debugger';
 
 /**
@@ -66,8 +66,8 @@ export function beforeLogging(args: unknown[]): { validation: IValidationResult;
     const messages = args.slice(2);
 
     // Валидируем типы
-    const validLoggingTypes: TLoggingTypes[] = ['logAll', 'logAwaitTryCatch'];
-    const validProcessNames: TAccessProcess[] = ['common', 'process1', 'process2', 'process3', 'process4', 'process5', 'process6', 'process7', 'process8', 'process9', 'process10'];
+    const validLoggingTypes: TLoggingTypes[] = loggingTypesArray;
+    const validProcessNames: TAccessProcess[] = accessProcessArray;
 
     if (!validLoggingTypes.includes(loggingType)) {
         return {

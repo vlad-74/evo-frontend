@@ -1,53 +1,21 @@
 import { beforeLogging } from './logger-validator';
 import { TLoggingTypes, TAccessProcess } from './debugger';
-
-/** Цвета для консоли */
-export type TColor = 'red' | 'green' | 'blue' | 'yellow' | 'magenta' | 'cyan' | 'white' | 'gray';
-
-const colorStyles: Record<TColor, string> = {
-    red: 'color: #ff4444',
-    green: 'color: #00ff00',
-    blue: 'color: #4444ff',
-    yellow: 'color: #ffff00',
-    magenta: 'color: #ff44ff',
-    cyan: 'color: #00ffff',
-    white: 'color: #ffffff',
-    gray: 'color: #888888'
-};
-
-export type TEvoLog = {
-    warn: (
-        loggingType: TLoggingTypes,
-        processName: TAccessProcess,
-        ...messages: unknown[]
-    ) => void;
-    color: (
-        color: TColor,
-        loggingType: TLoggingTypes,
-        processName: TAccessProcess,
-        ...messages: unknown[]
-    ) => void;
-    info: (msg: any) => void;
-};
+import { colorStyles, TColor } from './logger.interface';
 
 /**
- * Форматирует сообщение для вывода
+ * Форматирует сообщение для вывода (только для примитивных типов)
  * @param loggingType - тип логирования
  * @param processName - название процесса
  * @param messages - сообщения для логирования
  *
- * @returns отформатированная строка
+ * @returns объект с префиксом и остальными сообщениями
  */
-function formatMessage(loggingType: TLoggingTypes, processName: TAccessProcess, messages: unknown[]): string {
+function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, messages: unknown[]): [string, ...unknown[]] {
     const timestamp = new Date().toISOString();
-    const messageText = messages.map(msg => {
-        if (typeof msg === 'object') {
-            return JSON.stringify(msg, null, 2);
-        }
-        return String(msg);
-    }).join(' ');
+    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
 
-    return `[${timestamp}] [${loggingType}] [${processName}] ${messageText}`;
+    // Первый аргумент - префикс, остальные - исходные сообщения
+    return [prefix, ...messages];
 }
 
 /**
@@ -59,6 +27,7 @@ function formatMessage(loggingType: TLoggingTypes, processName: TAccessProcess, 
  * @example
  * evo.log.warn('logAll', 'common', 'Сообщение предупреждения')
  * evo.log.warn('logAwaitTryCatch', 'process1', 'Сообщение', 'еще сообщение')
+ * evo.log.warn('logAll', 'common', { key: 'value' }, ['array'], new Date())
  */
 function warn(
     loggingType: TLoggingTypes,
@@ -72,9 +41,9 @@ function warn(
         return;
     }
 
-    // Если валидация пройдена, выводим отформатированное сообщение
-    const formattedMessage = formatMessage(loggingType, processName, validationResult.restArgs);
-    console.warn(formattedMessage);
+    // Выводим с префиксом, объекты останутся объектами
+    const logArgs = buildLogArgs(loggingType, processName, validationResult.restArgs);
+    console.warn(...logArgs);
 }
 
 /**
@@ -86,7 +55,7 @@ function warn(
  *
  * @example
  * evo.log.color('red', 'logAll', 'common', 'Красное сообщение')
- * evo.log.color('green', 'logAwaitTryCatch', 'process2', 'Зеленое сообщение')
+ * evo.log.color('green', 'logAwaitTryCatch', 'process2', 'Зеленое сообщение', { obj: true })
  */
 function color(
     color: TColor,
@@ -106,17 +75,22 @@ function color(
         return;
     }
 
-    // Если валидация пройдена, выводим цветное сообщение
-    const formattedMessage = formatMessage(loggingType, processName, validationResult.restArgs);
-    console.log(`%c${formattedMessage}`, colorStyles[color]);
+    // Для цветного логирования нужно применить стиль только к префиксу
+    const timestamp = new Date().toISOString();
+    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
+    const styledPrefix = `%c${prefix}`;
+
+    // Первый аргумент - стилизованный префикс, затем стиль, затем остальные сообщения
+    console.log(styledPrefix, colorStyles[color], ...validationResult.restArgs);
 }
 
 /**
- * logSimple - упрощенное обычное логирование с фиксированными параметрами
+ * info - упрощенное обычное логирование с фиксированными параметрами
  * @param msg - сообщение для логирования
  *
  * @example
- * evo.log.logSimple('Простое сообщение')
+ * evo.log.info('Простое сообщение')
+ * evo.log.info({ user: 'John', age: 30 })
  */
 function info(msg: unknown): void {
     log('logAll', 'common', msg);
@@ -139,8 +113,8 @@ export function log(
         return;
     }
 
-    const formattedMessage = formatMessage(loggingType, processName, validationResult.restArgs);
-    console.log(formattedMessage);
+    const logArgs = buildLogArgs(loggingType, processName, validationResult.restArgs);
+    console.log(...logArgs);
 }
 
-export const logService = { warn, color, info, }
+export const logService = { warn, color, info, log };
