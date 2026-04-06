@@ -4,12 +4,9 @@ import { TEvo } from './evo-global-declare';
 
 import { evoLoggingAccessType } from './evo/logging/debugger';
 import { logService } from './evo/logging/logger';
-
-import { DevicesLighthouse } from './evo/devices-screen/devices/devices.lighthouse';
 import { devices } from './evo/devices-screen/devices/devices';
-import { ScreenLighthouse } from './evo/devices-screen/screen/screen.lighthouse';
-import { ScreenService } from './evo/devices-screen/screen/screen.service';
 import { setupSubscriptions } from './evo/evo-subscriptions';
+import { DevicesScreen } from './evo/devices-screen/devices-screen';
 
 //------------------------------
 
@@ -29,7 +26,9 @@ const evoStart = {
 
         console.log('EVO destroyed - subscriptions & window');
     },
+    // настройка логирования
     debug: evoLoggingAccessType,
+    // логирование
     log: logService,
 };
 
@@ -37,15 +36,8 @@ const evoStart = {
 export const evoBase: TEvo = {
     ...evoStart,
     help: 'раздел в разработке',
-    devicesScreen: {
-        devices: {
-            l: new DevicesLighthouse(),
-        },
-        screen: {
-            l: new ScreenLighthouse(),
-            s: new ScreenService(),
-        },
-    },
+    // информация об экране на основе предоставленной информации о девайсах
+    devicesScreen:  new DevicesScreen(),
 };
 
 (window as any).evo = evoBase;
