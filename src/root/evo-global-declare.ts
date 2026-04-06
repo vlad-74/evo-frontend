@@ -1,8 +1,9 @@
-import {TLoggingAccessType} from './root/evo/logging/debugger';
-import {TEvoLog} from './root/evo/logging/logger';
+import {TLoggingAccessType} from './evo/logging/debugger';
+import {TEvoLog} from './evo/logging/logger';
 
 /** Тип для EVO */
 export type TEvo = {
+    help: string;
     debug: TLoggingAccessType;
     log: TEvoLog;
 };

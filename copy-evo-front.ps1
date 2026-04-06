@@ -1,4 +1,4 @@
-﻿# copy-evo-front.ps1
+﻿# copy-evo-front.ps1 (исправленная версия)
 
 $source = "D:\PROJECTS\evo-front\dist\fesm2015"
 $destination = "D:\PROJECTS\licenses-widget\node_modules\evo-front\__ivy_ngcc__\fesm2015"
@@ -40,30 +40,3 @@ Write-Host "В: $destination" -ForegroundColor Cyan
 # Проверяем, что файлы действительно скопировались
 Write-Host "`n📁 Содержимое папки назначения:" -ForegroundColor Yellow
 Get-ChildItem -Path $destination | ForEach-Object { Write-Host "  - $($_.Name)" }
-
-# ========== ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ: копирование global.d.ts ==========
-Write-Host "`n📄 Копирование global.d.ts..." -ForegroundColor Magenta
-
-$sourceDts = "D:\PROJECTS\evo-front\dist\global.d.ts"
-$destDtsFolder = "D:\PROJECTS\licenses-widget\node_modules\evo-front\"
-$destDtsPath = Join-Path $destDtsFolder "global.d.ts"
-
-# Проверяем существование исходного файла
-if (!(Test-Path $sourceDts)) {
-    Write-Host "⚠️ Предупреждение: Файл global.d.ts не найден: $sourceDts" -ForegroundColor Yellow
-    Write-Host "   Копирование пропущено." -ForegroundColor Yellow
-} else {
-    # Проверяем существование папки назначения
-    if (!(Test-Path $destDtsFolder)) {
-        Write-Host "Папка назначения не найдена: $destDtsFolder" -ForegroundColor Yellow
-        Write-Host "Создаю папку..." -ForegroundColor Yellow
-        New-Item -ItemType Directory -Path $destDtsFolder -Force
-    }
-
-    # Копируем файл с перезаписью
-    Copy-Item -Path $sourceDts -Destination $destDtsPath -Force
-    Write-Host "✓ Скопирован: global.d.ts" -ForegroundColor Green
-    Write-Host "   Из: $sourceDts" -ForegroundColor Cyan
-    Write-Host "   В: $destDtsPath" -ForegroundColor Cyan
-}
-# ======================================================================
