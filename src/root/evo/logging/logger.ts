@@ -20,13 +20,13 @@ function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, m
 
 /**
  * warn - аналог console.warn с валидацией
- * @param loggingType - тип логирования (logAll, logAwaitTryCatch)
+ * @param loggingType - тип логирования (logAll, awaitTryCatch)
  * @param processName - название процесса
  * @param messages - сообщения для логирования
  *
  * @example
  * evo.log.warn('logAll', 'common', 'Сообщение предупреждения')
- * evo.log.warn('logAwaitTryCatch', 'process1', 'Сообщение', 'еще сообщение')
+ * evo.log.warn('awaitTryCatch', 'process1', 'Сообщение', 'еще сообщение')
  * evo.log.warn('logAll', 'common', { key: 'value' }, ['array'], new Date())
  */
 function warn(
@@ -49,13 +49,13 @@ function warn(
 /**
  * color - цветное логирование в консоли с валидацией
  * @param color - цвет текста
- * @param loggingType - тип логирования (logAll, logAwaitTryCatch)
+ * @param loggingType - тип логирования (logAll, awaitTryCatch)
  * @param processName - название процесса
  * @param messages - сообщения для логирования
  *
  * @example
  * evo.log.color('red', 'logAll', 'common', 'Красное сообщение')
- * evo.log.color('green', 'logAwaitTryCatch', 'process2', 'Зеленое сообщение', { obj: true })
+ * evo.log.color('green', 'awaitTryCatch', 'process2', 'Зеленое сообщение', { obj: true })
  */
 function color(
     color: TColor,

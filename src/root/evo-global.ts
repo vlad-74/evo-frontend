@@ -7,6 +7,7 @@ import { logService } from './evo/logging/logger';
 import { devices } from './evo/devices-screen/devices/devices';
 import { setupSubscriptions } from './evo/evo-subscriptions';
 import { DevicesScreen } from './evo/devices-screen/devices-screen';
+import {Theme} from "./evo/theme/theme";
 
 //------------------------------
 
@@ -38,6 +39,7 @@ export const evoBase: TEvo = {
     help: 'раздел в разработке',
     // информация об экране на основе предоставленной информации о девайсах
     devicesScreen:  new DevicesScreen(),
+    theme: new Theme(),
 };
 
 (window as any).evo = evoBase;
@@ -49,3 +51,6 @@ setupSubscriptions(evo, libraryDestroy$);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
 evo.devicesScreen.devices.l.send(devices);
+
+
+

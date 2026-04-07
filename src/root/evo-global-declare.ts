@@ -1,6 +1,7 @@
 import { TLoggingAccessType } from './evo/logging/debugger';
 import { TEvoLog } from './evo/logging/logger.interface';
 import {IDevicesScreen} from "./evo/devices-screen/devices-screen";
+import {IEvoTheme} from "./evo/theme/theme";
 
 /** Тип для EVO */
 export type TEvo = {
@@ -8,7 +9,8 @@ export type TEvo = {
     help: string;
     debug: TLoggingAccessType;
     log: TEvoLog;
-    devicesScreen: IDevicesScreen
+    devicesScreen: IDevicesScreen;
+    theme: IEvoTheme;
 };
 
 declare global {
